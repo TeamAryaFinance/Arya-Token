@@ -22,6 +22,7 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
 // const fs = require('fs');
 const mnemonic = require("./secrets.json").mnemonic
+const BSCSCANAPIKEY = require('./env.json').BSCSCANAPIKEY;
 
 module.exports = {
   /**
@@ -33,6 +34,12 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
+  plugins: [
+    'truffle-plugin-verify'
+  ],
+  api_keys: {
+    bscscan: BSCSCANAPIKEY
+  },
 
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
@@ -65,6 +72,7 @@ module.exports = {
     // timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
     // skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
     // },
+
     testnet: {
       provider: () => new HDWalletProvider(mnemonic, `https://data-seed-prebsc-1-s1.binance.org:8545`),
       network_id: 97,
